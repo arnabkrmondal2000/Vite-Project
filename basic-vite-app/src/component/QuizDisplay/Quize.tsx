@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import quizeData  from '../QuizData/QuizeData';
+import './Quize.css';
 
 interface Questions {
     question: string;
@@ -45,23 +46,27 @@ const QuizeDisplay = () => {
 
  return (
     <>
-    <div>
+    <div className='container'>
      {finsh ? (<div>
          <h2>Congratulation ! You have finish the task</h2> 
-         <h3> Your Score is {score}/{quizeData.questions.length}</h3>
+         <h3 className='score-data'> Your Score is {score}/{quizeData.questions.length}</h3>
      </div>) :
      (<div>
-        <h2>{currentQuestion.question}</h2>
-        <div>
+        <h2 className='question'>{currentQuestion.question}</h2>
+        <div className='options'>
             {
                 currentQuestion.options.map((data) => (
-                    <button key={data} onClick={()=>{handleOptionsClick(data)}}>
+                    <button key={data} onClick={()=>{handleOptionsClick(data)}}
+                    style={{
+                        backgroundColor: answer === data ? "#add8e6" : "white",
+                      }}
+                    >
                         {data}
                     </button>
                 ))
             }
         </div>
-        <button onClick={handleNextQuestion}>Next Question</button>
+        <button className='next-button' onClick={handleNextQuestion} disabled ={!answer}>Next Question</button>
      </div>)}
      </div>
     </>
